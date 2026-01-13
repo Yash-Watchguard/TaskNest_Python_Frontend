@@ -10,7 +10,6 @@ import { Task, TaskStatus } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
 import { TaskboxComponent } from '../../taskbox/taskbox.component';
 import { CommentComponent } from '../../comment/comment.component';
-import { SummaryCardComponent } from '../../shared/summary-card/summary-card.component';
 import { LoaderComponent } from "../../loader/loader.component";
 
 @Component({
@@ -24,6 +23,7 @@ export class EmployeedashboardComponent implements OnInit {
   private tasks$!: Observable<Task[]>;
   todo: Task[] = [];
   inProgress: Task[] = [];
+  inReview:Task[] = [];
   done: Task[] = [];
 
   selectedTask: Task | null = null;
@@ -60,6 +60,7 @@ export class EmployeedashboardComponent implements OnInit {
       this.inProgress = task.filter(
         (t) => t.TaskStatus == "In Progress"
       );
+      this.inReview = task.filter((t)=>t.TaskStatus == TaskStatus.InReview)
       this.done = task.filter((t) => t.TaskStatus == "Done");
     });
   }
@@ -82,8 +83,7 @@ export class EmployeedashboardComponent implements OnInit {
   }
 
   onopencomment(task: Task): void {
-    //  this.showComments=true
-    //  this.selectedTask=task
+
     this.router.navigate(['../task'], {
       relativeTo: this.route,
       state: { task: task },

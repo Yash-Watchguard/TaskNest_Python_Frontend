@@ -27,8 +27,8 @@ export class TaskService {
 
   // Task of a particular project
 
-   baseUrl= 'http://13.232.31.88:8000/'
-  baseUrl2= 'http://13.232.31.88:8000/'
+   baseUrl= 'http://127.0.0.1:8000/'
+  baseUrl2= 'http://127.0.0.1:8000/'
   AprojectTask = new BehaviorSubject<Task[]>([]);
   public ProjectTasks$ = this.AprojectTask.asObservable();
   private gettaskurl = '';

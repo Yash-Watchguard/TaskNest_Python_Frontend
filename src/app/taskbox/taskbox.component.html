@@ -3,13 +3,14 @@
   [ngClass]="{
     'in-pending': task.TaskStatus === TaskStatus.Pending,
     'in-done': task.TaskStatus === TaskStatus.Done,
-    'in-progress': task.TaskStatus === TaskStatus.InProgress
+    'in-progress': task.TaskStatus === TaskStatus.InProgress,
+    'in-review' :  task.TaskStatus === TaskStatus.InReview
   }"
   
 >  
 <div class="top">
   <div class="header">
-    <h2 class="title">{{ task.Title }}</h2>
+    <h2 class="title">Title : {{ task.Title }}</h2>
   </div>
   <div class="action" style="display: flex;gap: 20px;">
     <button (click)="deletetask()" *ngIf="user?.Role==1"  class="delete" style="border-radius: 6px; background-color:var(--p-purple-50);cursor: pointer;" ><i class="pi pi-trash" style="color: red !important;width: 30px;border-radius:6px;"></i></button>
@@ -24,7 +25,8 @@
       [ngClass]="{
         progress: task.TaskStatus === TaskStatus.InProgress,
         pending: task.TaskStatus === TaskStatus.Pending,
-        done: task.TaskStatus === TaskStatus.Done
+        done: task.TaskStatus === TaskStatus.Done,
+        review:task.TaskStatus ===TaskStatus.InReview
       }"
       >{{ task.TaskStatus }}</span
     >
@@ -40,27 +42,34 @@
   >
     Due: {{ task.Deadline | date : "dd/MM/yyyy" }}
   </p>
-  <div class="actions" *ngIf="user?.Role===2">
+  <div class="actions" >
     <button
-      *ngIf="task.TaskStatus === TaskStatus.Pending"
+      *ngIf="task.TaskStatus === TaskStatus.Pending && user?.Role===2"
       class="start-button"
       (click)="onStart()"
     >
       Start
     </button>
     <button
-      *ngIf="task.TaskStatus === TaskStatus.InProgress"
+      *ngIf="task.TaskStatus === TaskStatus.InProgress && user?.Role===2"
+      class="Inprogress-button"
+      (click)="onReview()"
+    >
+      Review
+    </button>
+    <button
+      *ngIf="task.TaskStatus === TaskStatus.InReview && user?.Role ===1"
       class="complete-button"
       (click)="onComplete()"
     >
       Complete
     </button>
     <button
-      *ngIf="task.TaskStatus === TaskStatus.InProgress"
-      class="complete-button"
-      (click)="onComplete()"
+    *ngIf="task.TaskStatus != TaskStatus.Pending && user?.Role ==2"
+      class="Back-button"
+      (click)="goBack()"
     >
-      Complete
+      Back
     </button>
 
 

@@ -39,6 +39,36 @@ export class TaskboxComponent {
   onComplete() {
     this.statusChange.emit({  taskId: this.task.TaskId,projectId:this.task.ProjectId,managerId:this.task.CreatedBy, taskStatus: TaskStatus.Done });
   }
+  onReview(){
+    this.statusChange.emit({taskId: this.task.TaskId,projectId:this.task.ProjectId,managerId:this.task.CreatedBy,taskStatus:TaskStatus.InReview})
+  }
+
+  goBack(){
+    let updatedStatus: TaskStatus | undefined;
+
+  switch (this.task.TaskStatus) {
+    case TaskStatus.InProgress:
+      updatedStatus = TaskStatus.Pending;
+      break;
+    case TaskStatus.InReview:
+      updatedStatus = TaskStatus.InProgress;
+      break;
+    case TaskStatus.Done:
+      updatedStatus = TaskStatus.InReview;
+      break;
+  }
+
+  if (!updatedStatus) return;
+
+  this.statusChange.emit({
+    taskId: this.task.TaskId,
+    projectId: this.task.ProjectId,
+    managerId: this.task.CreatedBy,
+    taskStatus: updatedStatus
+  });
+
+  }
+  
   opencomment(){
    
     this.openComments.emit(this.task)

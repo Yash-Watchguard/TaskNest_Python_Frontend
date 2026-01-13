@@ -9,6 +9,7 @@ $progress-bg: #e0f2f7;
 $progress-color: #007bb5;
 $button-bg: #e6ffe6;
 $button-color: #008000;
+
 $overdue-color: #e60023;
 $icon-color: #999;
 
@@ -27,6 +28,10 @@ $icon-color: #999;
     &.in-done{
         border: 2px solid var(--p-green-400);
         background-color: var(--p-green-50);
+    }
+    &.in-review{
+        border: 2px solid var(--p-purple-400);
+        background-color: var(--p-purple-50);
     }
     
     
@@ -102,6 +107,10 @@ $icon-color: #999;
             background-color: #fff3cd;
             color: #856404;
         }
+        .review{
+            background-color: var(--p-purple-200);
+            color: var(--p-purple-600);
+        }
 
         .done {
             background-color: #d4edda;
@@ -132,7 +141,7 @@ $icon-color: #999;
         justify-content: space-between;
      
 
-        .complete-button , .start-button {
+        .complete-button , .start-button, .Inprogress-button {
             background-color: $button-bg;
             color: $button-color;
             border: none;
@@ -148,6 +157,23 @@ $icon-color: #999;
                 opacity: 0.8;
             }
         }
+        .Back-button{
+            background-color: var(--p-red-200);
+            color: var(--p-red-600);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+           
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+       
          i {
             padding-right: 25px;
                 width: 3px;

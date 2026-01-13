@@ -24,8 +24,8 @@ export class UserService {
     Role: '',
   });
 
-  baseUrl= 'http://13.232.31.88:8000/'
-  baseUrl2= 'http://13.232.31.88:8000/'
+  baseUrl= 'http://127.0.0.1:8000/'
+  baseUrl2= 'http://127.0.0.1:8000/'
 
   GetAllUsers() {
     return this.httpClient.get<getAllUsersApiRes>(this.baseUrl+`users`).pipe(

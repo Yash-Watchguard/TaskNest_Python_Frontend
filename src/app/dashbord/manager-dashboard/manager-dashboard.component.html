@@ -19,7 +19,7 @@
         <p>Total Task</p>
         <h2>
           {{
-            allDonetask.length + allInProgresstask.length + alltodotask.length
+            allDonetask.length + allInProgresstask.length + alltodotask.length + inReview.length
           }}
         </h2>
       </div>
@@ -27,16 +27,7 @@
         <i class="pi pi-calendar" style="font-size: 1.5rem"></i>
       </div>
     </div>
-
-    <div class="summary-box">
-      <div class="card-items">
-        <p>Completed Task</p>
-        <h2>{{ allDonetask.length }}</h2>
-      </div>
-      <div class="active-tasks-icon">
-        <i class="pi pi-check-circle" style="font-size: 1.5rem"></i>
-      </div>
-    </div>
+    
     <div class="summary-box">
       <div class="card-items">
         <p>In Progress</p>
@@ -44,6 +35,29 @@
       </div>
       <div class="managers-icon">
         <i class="pi pi-calendar" style="font-size: 1.5rem"></i>
+      </div>
+    </div>
+    
+    <div class="summary-box">
+      <div class="card-items">
+        <p>In Review</p>
+        <h2>
+          {{
+            inReview.length
+          }}
+        </h2>
+      </div>
+      <div class="total-user-icon">
+        <i class="pi pi-list-check" style="font-size: 1.5rem"></i>
+      </div>
+    </div>
+    <div class="summary-box">
+      <div class="card-items">
+        <p>Completed Task</p>
+        <h2>{{ allDonetask.length }}</h2>
+      </div>
+      <div class="active-tasks-icon">
+        <i class="pi pi-check-circle" style="font-size: 1.5rem"></i>
       </div>
     </div>
   </div>

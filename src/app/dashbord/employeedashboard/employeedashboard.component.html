@@ -8,7 +8,7 @@
     <div class="summary-box">
       <div class="card-items">
         <p>Total Task</p>
-        <h2>{{ todo.length + inProgress.length + done.length }}</h2>
+        <h2>{{ todo.length + inProgress.length + done.length +inReview.length}}</h2>
       </div>
       <div class="total-Project-right">
         <i class="pi pi-calendar" style="font-size: 1.5rem"></i>
@@ -32,9 +32,23 @@
       <div class="card-items">
         <p>In Progress</p>
         <h2>{{ inProgress.length }}</h2>
+        
       </div>
       <div class="active-tasks-icon">
         <i class="pi pi-hourglass" style="font-size: 1.5rem"></i>
+      </div>
+    </div>
+    <div class="summary-box">
+      <div class="card-items">
+        <p>In Review</p>
+        <h2>
+          {{
+            inReview.length
+          }}
+        </h2>
+      </div>
+      <div class="total-user-icon">
+        <i class="pi pi-list-check" style="font-size: 1.5rem"></i>
       </div>
     </div>
     <div class="summary-box">
@@ -112,13 +126,14 @@
       @if(showLoader){
         <app-loader></app-loader>
       }@else {
-        @if(done.length>0){
+        @if(inReview.length>0){
  <div class="task-box">
         <ul>
-          <li *ngFor="let task of done">
+          <li *ngFor="let task of inReview">
             <app-taskbox
               [task]="task"
               (openComments)="onopencomment($event)"
+              (statusChange)="onStatusChange($event,task)"
             ></app-taskbox>
           </li>
         </ul>
@@ -144,6 +159,7 @@
             <app-taskbox
               [task]="task"
               (openComments)="onopencomment($event)"
+              (statusChange)="onStatusChange($event,task)"
             ></app-taskbox>
           </li>
         </ul>

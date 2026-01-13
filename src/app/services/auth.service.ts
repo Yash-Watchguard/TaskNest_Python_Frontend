@@ -17,8 +17,8 @@ export class AuthService {
   signupsignal = signal<boolean>(false);
   newUser = signal<user | null>(null);
 
-  baseUrl= 'http://13.232.31.88:8000/'
-  baseUrl2= 'http://13.232.31.88:8000/'
+  baseUrl= 'http://127.0.0.1:8000/'
+  baseUrl2= 'http://127.0.0.1:8000/'
   
   Signup(url: string, UserDetails: signupuserdto) {
     return this.HttpClient.post<signupresponse>(this.baseUrl+'signup', UserDetails);

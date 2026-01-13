@@ -22,7 +22,6 @@ export enum TaskStatus {
   InProgress = 'In Progress',
   InReview = 'In Review',
   Done = 'Done',
-
 }
 export enum priority {
   Low = 'Low',

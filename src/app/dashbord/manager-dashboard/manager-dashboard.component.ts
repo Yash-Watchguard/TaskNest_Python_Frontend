@@ -37,6 +37,7 @@ export class ManagerDashboardComponent implements OnInit {
   allInProgresstask: Task[] = [];
   allDonetask: Task[] = [];
   SingleProjectTask: Task[] = [];
+  inReview:Task[] =[];
 
   isaddtaskopen = false;
   shouldLoad: boolean = false;
@@ -107,6 +108,7 @@ export class ManagerDashboardComponent implements OnInit {
       this.alltodotask = task.filter(
         (t) => t.TaskStatus === TaskStatus.Pending
       );
+      this.inReview = task.filter((t)=>t.TaskStatus ==TaskStatus.InReview)
     });
   }
 
