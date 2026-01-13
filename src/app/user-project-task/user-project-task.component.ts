@@ -82,7 +82,7 @@ export class UserProjectTaskComponent implements OnInit {
   }
 
   loadTask():void{
-     this.taskService.GetTasks(`employees/${this.user?.Id}/tasksy`).subscribe({
+     this.taskService.GetTasks(`employees/${this.user?.Id}/tasks`).subscribe({
       next: (response) => {
         this.isLoad=false;
         console.log(response);
@@ -94,6 +94,7 @@ export class UserProjectTaskComponent implements OnInit {
       },
     });
   }
+
   loadProject():void{
       this.projectService.GetAssignedProject(`projects/assigned/${this.user?.Id}`).subscribe({
       next: (response) => {
@@ -184,11 +185,11 @@ export class UserProjectTaskComponent implements OnInit {
     this.selectedProject = null;
   }
 
-  onDeleteTask(taskId:string): void{
-    this.taskService.deleteTask(this.task?.TaskId as string,this.task?.ProjectId as string,this.task?.CreatedBy as string,this.task?.AssignedTo as string)
+  onDeleteTask(delete_task:Task): void{
+    this.taskService.deleteTask(delete_task?.TaskId as string,delete_task?.ProjectId as string,delete_task?.CreatedBy as string,delete_task?.AssignedTo as string)
     .subscribe({
         next: () => {
-          this.Tasks=this.Tasks.filter(task=>task.TaskId!=this.task?.TaskId)
+          this.Tasks=this.Tasks.filter(task=>task.TaskId!=delete_task?.TaskId)
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -235,8 +236,8 @@ export class UserProjectTaskComponent implements OnInit {
   }
 
   deleteUser():void{
-    this.userService.Deleteuser(this.user?.Email.replace('USER#','') as string).subscribe({
-      error:()=>{
+    this.userService.Deleteuser(this.user?.Id as string, this.user?.Email as string).subscribe({
+      next:()=>{
         this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -246,7 +247,8 @@ export class UserProjectTaskComponent implements OnInit {
           setTimeout(() => {
             this.goBack()
           }, 1000);
-      }
+      },
+      
     })
   }
 

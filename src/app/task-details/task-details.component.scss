@@ -518,3 +518,17 @@ $text-primary: #1f2937;
     font-size: 1.3rem;
   }
 }
+
+.edit-task-button{
+  padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: white;
+    justify-content: center;
+    padding-right: 20px;
+    color: var(--purple-300);
+}

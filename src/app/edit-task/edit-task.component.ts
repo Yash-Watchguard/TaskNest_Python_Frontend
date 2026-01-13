@@ -39,7 +39,7 @@ export class EditTaskComponent implements OnInit {
       this.titel = this.task.Title;
       this.description = this.task.Description;
       this.acceptanceCriteria = this.task.AcceptanceCriteria;
-      this.deadline = '';
+      this.deadline = '',
       this.empId = this.task.AssignedTo;
       this.task_priority = this.task.TaskPriority;
     }

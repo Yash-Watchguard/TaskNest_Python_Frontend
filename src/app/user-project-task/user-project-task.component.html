@@ -34,7 +34,7 @@
       <div class="task-meta">
         <span class="status" [ngClass]="task.TaskStatus">{{ task.TaskStatus }}</span>
        
-        <span class="due">Due: {{ task.Deadline }}</span>
+        <span class="due">Due: {{ task.Deadline | date  }}</span>
       </div>
 
       <div class="task-actions">
@@ -44,7 +44,7 @@
           <i class="pi pi-user-edit"></i> Reassign
         </button>
 
-        <button class="delete-btn" (click)="onDeleteTask(task.TaskId)">
+        <button class="delete-btn" (click)="onDeleteTask(task)">
           <i class="pi pi-trash"></i> Delete Task
         </button>
       </div>
@@ -120,7 +120,7 @@
       <div class="task-meta">
        
        
-        <span class="due">Due: {{ project.Deadline }}</span>
+        <span class="due">Due: {{ project.Deadline |date}}</span>
       </div>
 
       <div class="task-actions">

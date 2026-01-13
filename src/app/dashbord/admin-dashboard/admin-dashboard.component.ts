@@ -123,8 +123,8 @@ export class AdminDashboardComponent implements OnInit {
   }
 
 
-  PromoteEmp(email: string): void {
-    this.userservice.PromoteUser(email).subscribe({
+  PromoteEmp(userId: string): void {
+    this.userservice.PromoteUser(userId).subscribe({
       next: () => {
         this.messageservice.add({
           severity: 'success',

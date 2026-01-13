@@ -24,8 +24,8 @@ export class UserService {
     Role: '',
   });
 
-  baseUrl= 'https://j7hf8pxvdk.execute-api.ap-south-1.amazonaws.com/v5/'
-  baseUrl2= 'https://vv2zl4jl7h.execute-api.ap-south-1.amazonaws.com/v7/'
+  baseUrl= 'http://13.232.31.88:8000/'
+  baseUrl2= 'http://13.232.31.88:8000/'
 
   GetAllUsers() {
     return this.httpClient.get<getAllUsersApiRes>(this.baseUrl+`users`).pipe(
@@ -47,12 +47,12 @@ export class UserService {
     );
   }
 
-  Deleteuser(email:string): Observable<any> {
-    return this.httpClient.delete(this.baseUrl2+`user/${email}/delete`);
+  Deleteuser(id:string,email:string): Observable<any> {
+    return this.httpClient.patch(this.baseUrl2+`user/${id}/delete`,{email:email});
   }
 
-  PromoteUser(email: string) {
-    return this.httpClient.patch(this.baseUrl2+`users/promote/${email}`, null);
+  PromoteUser(id: string) {
+    return this.httpClient.patch(this.baseUrl2+`user/${id}`, {role:"Manager"});
   }
 
   GetProfile(userId: string) {

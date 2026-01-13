@@ -17,8 +17,8 @@ export class AuthService {
   signupsignal = signal<boolean>(false);
   newUser = signal<user | null>(null);
 
-  baseUrl= 'https://j7hf8pxvdk.execute-api.ap-south-1.amazonaws.com/v5/'
-  baseUrl2= 'https://vv2zl4jl7h.execute-api.ap-south-1.amazonaws.com/v7/'
+  baseUrl= 'http://13.232.31.88:8000/'
+  baseUrl2= 'http://13.232.31.88:8000/'
   
   Signup(url: string, UserDetails: signupuserdto) {
     return this.HttpClient.post<signupresponse>(this.baseUrl+'signup', UserDetails);
@@ -65,9 +65,9 @@ export class AuthService {
       Name: name,
       Email: userDetails.email,
       Role:
-        decode.role == 0
+        decode.role == 'Admin'
           ? Role.ADMIN
-          : decode.role == 1
+          : decode.role == 'Manager'
           ? Role.MANAGER
           : Role.EMPLOYEE,
     };

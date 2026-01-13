@@ -11,8 +11,8 @@ export class ProjectService{
 
     projects$ =this.ProjectObject.asObservable();
 
-     baseUrl= 'https://j7hf8pxvdk.execute-api.ap-south-1.amazonaws.com/v5/'
-  baseUrl2= 'https://vv2zl4jl7h.execute-api.ap-south-1.amazonaws.com/v7/'
+     baseUrl= 'http://127.0.0.1:8000/'
+  baseUrl2= 'http://127.0.0.1:8000/'
 
     private getprojecturl='';
 
@@ -38,7 +38,7 @@ export class ProjectService{
     }
 
     Addproject(project:AddProjectRequest){
-       return this.httpclient.post(this.baseUrl+`projects`,project).pipe(
+       return this.httpclient.post(this.baseUrl+`project`,project).pipe(
         tap(()=>{
             this.GetAllProject();
         })
@@ -78,8 +78,8 @@ export class ProjectService{
         );
     }
 
-    DeleteProject(projectId:string,managerId:string){
-       return this.httpclient.delete(this.baseUrl2+`/project/${projectId}/assigned/${managerId}/delete`).pipe(
+    DeleteProject(projectId:string,managerId:string,creator_id:string){
+       return this.httpclient.delete(this.baseUrl2+`projects/${projectId}/creator/${creator_id}/managers/${managerId}/deleteproject`).pipe(
         tap(()=>{
             this.GetAllProject();
         })

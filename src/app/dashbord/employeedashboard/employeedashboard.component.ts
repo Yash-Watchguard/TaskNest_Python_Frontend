@@ -45,7 +45,7 @@ export class EmployeedashboardComponent implements OnInit {
     const user = userstring ? JSON.parse(userstring) : null;
     this.tasks$ = this.taskservice.tasks$;
     const userId = localStorage.getItem('userId');
-    this.taskservice.GetTasks(`employees/${userId}/tasksy`).subscribe({
+    this.taskservice.GetTasks(`employees/${userId}/tasks`).subscribe({
       next: (response) => {
         this.showLoader=false;
         console.log(response);
@@ -55,11 +55,12 @@ export class EmployeedashboardComponent implements OnInit {
       },
     });
     this.tasks$.subscribe((task) => {
-      this.todo = task.filter((t) => t.TaskStatus === TaskStatus.Pending);
+      console.log(task)
+      this.todo = task.filter((t) => t.TaskStatus == "Pending");
       this.inProgress = task.filter(
-        (t) => t.TaskStatus === TaskStatus.InProgress
+        (t) => t.TaskStatus == "In Progress"
       );
-      this.done = task.filter((t) => t.TaskStatus === TaskStatus.Done);
+      this.done = task.filter((t) => t.TaskStatus == "Done");
     });
   }
 

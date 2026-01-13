@@ -70,7 +70,7 @@ export class TaskDetailsComponent implements OnInit, OnDestroy{
   addComment(): void {
     if (this.newComment.trim()) {
      
-      this.commentservice.Addcomment(`projects/${this.task.ProjectId}/tasks/${this.task?.TaskId}/comments`,this.newComment).subscribe({
+      this.commentservice.Addcomment(`projects/${this.task.ProjectId}/tasks/${this.task?.TaskId}/comments`,this.newComment, this.task.CreatedBy).subscribe({
         next:response=>{
           console.log("added")
         },
@@ -109,6 +109,7 @@ export class TaskDetailsComponent implements OnInit, OnDestroy{
           this.task=Response[0];
         }
       });
+      this.closeEditbox()
   }
 }
 

@@ -50,7 +50,7 @@ export class EmpTaskComponent implements OnInit, OnChanges {
   loadUserTasks(): void {
     this.taskloader=true;
    
-    this.taskService.GetEmpTask(`employees/${this.user?.Id}/tasksy`).subscribe({
+    this.taskService.GetEmpTask(`employees/${this.user?.Id}/tasks`).subscribe({
       next: (allTasks: Task[]) => {
         this.tasks = allTasks;
         this.taskloader=false;

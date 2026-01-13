@@ -27,8 +27,8 @@ export class TaskService {
 
   // Task of a particular project
 
-   baseUrl= 'https://j7hf8pxvdk.execute-api.ap-south-1.amazonaws.com/v5/'
-  baseUrl2= 'https://vv2zl4jl7h.execute-api.ap-south-1.amazonaws.com/v7/'
+   baseUrl= 'http://13.232.31.88:8000/'
+  baseUrl2= 'http://13.232.31.88:8000/'
   AprojectTask = new BehaviorSubject<Task[]>([]);
   public ProjectTasks$ = this.AprojectTask.asObservable();
   private gettaskurl = '';
@@ -124,7 +124,7 @@ export class TaskService {
   deleteTask(taskId: string, projectId: string,managerId:string,empId:string) {
     return this.httpClient
       .delete<{ status: string; message: string }>(
-       this.baseUrl2+ `/projects/${projectId}/tasks/${taskId}/manager/${managerId}/employee/${empId}/deletetask`
+       this.baseUrl2+ `projects/${projectId}/tasks/${taskId}/manager/${managerId}/employee/${empId}/deletetask`
       )
       .pipe(
         tap((response) => {

@@ -55,7 +55,7 @@ export class ProjectboxComponent implements OnInit {
       header: 'Are you sure?',
       message: 'Please confirm to proceed.',
       accept: () => {
-            this.projectservice.DeleteProject(this.Project?.ProjectId,this.Project?.AssignedManagerId).subscribe({
+            this.projectservice.DeleteProject(this.Project?.ProjectId,this.Project?.AssignedManagerId,this.Project?.CreatedBy).subscribe({
       next:()=>{
         this.projectDeleted.emit(true)
         this.projectservice.GetAllProject().subscribe(()=>{

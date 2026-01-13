@@ -55,6 +55,13 @@
     >
       Complete
     </button>
+    <button
+      *ngIf="task.TaskStatus === TaskStatus.InProgress"
+      class="complete-button"
+      (click)="onComplete()"
+    >
+      Complete
+    </button>
 
     <!-- <i (click)="opencomment()" class="material-icons">chat-bubble</i> -->
   </div>

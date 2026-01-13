@@ -27,7 +27,7 @@ export class UserComponent {
 
   
   promoteemployee() {
-    this.PromoteEmployeeSignal.emit(this.user.Email.replace('USER#', ''));
+    this.PromoteEmployeeSignal.emit(this.user.Id);
   }
   deleteuser(event: Event) {
     event.stopPropagation();
