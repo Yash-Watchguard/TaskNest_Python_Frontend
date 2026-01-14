@@ -37,7 +37,7 @@ export class TaskboxComponent {
   }
 
   onComplete() {
-    this.statusChange.emit({  taskId: this.task.TaskId,projectId:this.task.ProjectId,managerId:this.task.CreatedBy, taskStatus: TaskStatus.Done });
+    this.statusChange.emit({ taskId: this.task.TaskId,projectId:this.task.ProjectId,managerId:this.task.CreatedBy, taskStatus: TaskStatus.Done });
   }
   onReview(){
     this.statusChange.emit({taskId: this.task.TaskId,projectId:this.task.ProjectId,managerId:this.task.CreatedBy,taskStatus:TaskStatus.InReview})

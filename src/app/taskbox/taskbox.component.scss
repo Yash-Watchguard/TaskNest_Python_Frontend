@@ -192,3 +192,29 @@ $icon-color: #999;
         }
     }
 }
+.comment-btn {
+  border: 0.8px solid var(--p-purple-400);
+  background: transparent;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.comment-btn i {
+  font-size: 1.2rem;
+  color: #8e44ad; 
+}
+
+.comment-btn:hover {
+  background-color: rgba(142, 68, 173, 0.15);
+}
+
+.comment-btn:active {
+  transform: scale(0.95);
+}
+
+.comment-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(142, 68, 173, 0.3);
+}

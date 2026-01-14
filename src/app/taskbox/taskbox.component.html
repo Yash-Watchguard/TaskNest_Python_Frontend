@@ -14,7 +14,9 @@
   </div>
   <div class="action" style="display: flex;gap: 20px;">
     <button (click)="deletetask()" *ngIf="user?.Role==1"  class="delete" style="border-radius: 6px; background-color:var(--p-purple-50);cursor: pointer;" ><i class="pi pi-trash" style="color: red !important;width: 30px;border-radius:6px;"></i></button>
-    <button (click)="onclick()" class="comment" style="border-radius: 6px;cursor: pointer;" ><i class="pi pi-comment" style="color: purple !important;width: 30px;"></i></button>
+    <button class="comment-btn" (click)="onclick()">
+  <i class="pi pi-comment"></i>
+</button>
   </div>
 </div>
   
@@ -30,7 +32,22 @@
       }"
       >{{ task.TaskStatus }}</span
     >
-    <span class="project">Project: {{ projectName }}</span>
+    <span class=" status"
+    [ngClass]="{
+        pending: task.TaskStatus === TaskStatus.InProgress,
+        progress: task.TaskStatus === TaskStatus.Pending,
+        review: task.TaskStatus === TaskStatus.Done,
+        done:task.TaskStatus ===TaskStatus.InReview
+      }"
+    *ngIf="user?.Role != 2">Project: {{ projectName }}</span>
+    <span class="status" 
+    [ngClass]="{
+        review: task.TaskStatus === TaskStatus.InProgress,
+        done: task.TaskStatus === TaskStatus.Pending,
+        pending: task.TaskStatus === TaskStatus.Done,
+        progress:task.TaskStatus ===TaskStatus.InReview
+      }"
+    >Priority: {{ task.TaskPriority }}</span>
   </div>
   <p
     *ngIf="
