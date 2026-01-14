@@ -444,7 +444,7 @@ $text-primary: #1f2937;
   .message {
     gap: 0.75rem;
 
-    :hover{
+    &:hover{
       cursor: pointer;
     }
 
@@ -563,4 +563,12 @@ $text-primary: #1f2937;
 
 .reload-icon.spinning {
   animation: spin 1s linear;
+}
+
+.comment-date {
+  display: block;
+  font-size: 0.65rem;
+  color: #999;
+  margin-top: 0.3rem;
+  font-weight: normal;
 }

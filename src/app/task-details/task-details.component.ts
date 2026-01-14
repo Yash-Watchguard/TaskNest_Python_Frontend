@@ -32,7 +32,7 @@ export class TaskDetailsComponent implements OnInit, OnDestroy{
    
    isOpenEditTask=false;
    isReloading = false;
-   isshowdate= false;
+   showDateForComments = new Set<string>();
 
    private commentservice=inject(CommentService)
    private comments$!:Observable<comment[]>
@@ -109,8 +109,12 @@ export class TaskDetailsComponent implements OnInit, OnDestroy{
   goBack():void{
     window.history.back()
   }
-  showdate(){
-    this.isshowdate= true
+  showdate(commentId: string){
+    if(this.showDateForComments.has(commentId)){
+      this.showDateForComments.delete(commentId);
+    } else {
+      this.showDateForComments.add(commentId);
+    }
   }
 
   onSuccessfulledit():void{

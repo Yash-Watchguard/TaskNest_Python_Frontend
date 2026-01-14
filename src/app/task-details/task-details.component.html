@@ -4,7 +4,7 @@
 <div class="task-title-box">
 <button class="add-btn"><i class="pi pi-plus"></i></button>
 <h1 class="task-title">{{task.Title}}</h1>
-<button (click)="OpenEditTaskBox()" class="edit-task-button" *ngIf="user?.Role == 0 || user?.Role == 1"><i></i>edit</button>
+<button (click)="OpenEditTaskBox()" class="edit-task-button" *ngIf="user?.Role == 0 || user?.Role == 1" style="cursor: pointer;"><i></i>edit</button>
 <span class="badge feature-badge">feature</span>
 <span class="badge completed-badge">{{task.TaskStatus}}</span>
 
@@ -50,25 +50,28 @@
   
 @for (comment of allcomments; track comment.comment_id) {
   @if(comment.created_by==user?.Name){
-     <div class="message message-right" (click)="showdate()">
+     <div class="message message-right" (click)="showdate(comment.comment_id)" style="cursor: pointer;">
   <div class="avatar self-avatar">{{comment.created_by.at(0)?.toUpperCase()}}</div>
 <div class="bubble self">
 <span class="name self-name">You</span>
 <p>{{comment.content}}</p>
-
+@if(showDateForComments.has(comment.comment_id)){
+  <span class="comment-date">{{comment.created_at | date:'short'}}</span>
+}
 </div>
 
 
 </div>
 
   }@else {
-    <div class="message message-left">
+    <div class="message message-left" (click)="showdate(comment.comment_id)" style="cursor:pointer;">
 <div class="avatar">{{comment.created_by.at(0)?.toUpperCase()}}</div>
 <div class="bubble">
 <span class="name">{{comment.created_by}}</span>
-<!-- <span class="name">{{comment.created_at |date}} </span> -->
 <p>{{comment.content}}</p>
-
+@if(showDateForComments.has(comment.comment_id)){
+  <span class="comment-date">{{comment.created_at | date:'short'}}</span>
+}
 </div>
 </div>
   }
