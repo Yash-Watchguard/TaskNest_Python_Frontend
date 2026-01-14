@@ -103,6 +103,7 @@
           [projectName]="projectName"
           (openComments)="onopencomment($event)"
           (deleteTask)="taskdelete($event)"
+          (statusChange)="onStatusChange($event,task)"
         ></app-taskbox>
         }
       </div>
@@ -123,4 +124,5 @@
   *ngIf="isaddtaskopen"
   (closepopup)="oncloseaddtaskbox()"
   [ProjectId]="ProjectIdforAddTask"
+  
 ></app-addtask>

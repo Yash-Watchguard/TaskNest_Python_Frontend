@@ -63,7 +63,8 @@ export class ManagerDashboardComponent implements OnInit {
     private taskservce: TaskService,
     private router: Router,
     private route: ActivatedRoute,
-    private messageService:MessageService
+    private messageService:MessageService,
+    private taskService:TaskService
   ) {}
 
   ngOnInit(): void {
@@ -71,10 +72,12 @@ export class ManagerDashboardComponent implements OnInit {
     this.tasks$ = this.taskservce.allTaskOfManager$;
     this.userId = localStorage.getItem('userId');
     this.projectLoader=true;
+    this.getManagerAssignedProject()
 
-
-    
-    this.projectservice.GetAssignedProject(`projects/assigned/${this.userId}`).subscribe({
+    this.getMangerAllTask();
+  }
+  getManagerAssignedProject(){
+     this.projectservice.GetAssignedProject(`projects/assigned/${this.userId}`).subscribe({
 
       next: (response) => {
         console.log(response);
@@ -88,8 +91,9 @@ export class ManagerDashboardComponent implements OnInit {
     this.projects$.subscribe((projects) => {
       this.assignedProjects = projects;
     });
-
-    this.taskservce
+  }
+  getMangerAllTask(){
+this.taskservce
       .GetAllManagerProjectTask(`projects/managers/${this.userId}/tasks`)
       .subscribe({
         next: () => {
@@ -111,6 +115,7 @@ export class ManagerDashboardComponent implements OnInit {
       this.inReview = task.filter((t)=>t.TaskStatus ==TaskStatus.InReview)
     });
   }
+
 
   loadTask(project:Project): void {
     
@@ -162,6 +167,7 @@ export class ManagerDashboardComponent implements OnInit {
     this.taskservce.deleteTask(event.taskId, event.projectId,event.managerId,event.emdId).subscribe({
       next: () => {
               this.shouldLoad=false;
+              this.getMangerAllTask();
               this.messageService.add({
           severity: 'success',
           summary: 'Success',
@@ -181,9 +187,32 @@ export class ManagerDashboardComponent implements OnInit {
   }
 
   oncloseaddtaskbox(): void {
+    this.getMangerAllTask()
     this.ProjectIdforAddTask = '';
     this.isaddtaskopen = false;
-    this.projectservice.GetAssignedProject(`projects/assigned/${this.userId}`).subscribe()
+    this.getManagerAssignedProject()
+  }
+  onStatusChange(event: { taskId: string; taskStatus: TaskStatus },task:Task): void {
+    const { taskId, taskStatus } = event;
+    
+    this.taskService
+      .UpdateStatus(`projects/${task.ProjectId}/tasks/${task.TaskId}/manager/${task.CreatedBy}/update`, taskStatus)
+      .subscribe({
+        next: () => {
+          console.log('task updated success');
+          this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Task Review Complete',
+          life: 3000,
+        });
+          this.getMangerAllTask()
+          this.shouldLoad = false
+        },
+        error: (err: HttpErrorResponse) => {
+          console.log(err);
+        },
+      });
   }
 
 }

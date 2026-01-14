@@ -126,74 +126,16 @@ export class TaskService {
       .delete<{ status: string; message: string }>(
        this.baseUrl2+ `projects/${projectId}/tasks/${taskId}/manager/${managerId}/employee/${empId}/deletetask`
       )
-      .pipe(
-        tap((response) => {
-          // call the getallmanagertask
-          this.GetAllManagerProjectTask(
-            `project/${this.userId}/tasks/manager`
-          ).subscribe({
-            next: (response) => {},
-            error: () => {},
-          });
-          // call get allproject task
-          this.GetAllTaskOfProject(`projects/${projectId}/tasks`).subscribe({
-            next: (response) => {},
-            error: () => {},
-          });
-          // update the projectstatus
-          this.projectservice
-            .GetProjectStatuas(`projects/status/${projectId}`)
-            .subscribe({
-              next: (response) => {},
-              error: () => {},
-            });
-        })
-      );
+      
   }
   addTask(projectId: string | undefined, taskdata: AddTask) {
-    return this.httpClient.post(this.baseUrl2+`projects/${projectId}/tasks`, taskdata).pipe(
-      tap(() => {
-        this.GetAllManagerProjectTask(
-          `project/${this.userId}/tasks/manager`
-        ).subscribe({
-          next: (response) => {},
-          error: () => {},
-        });
-        // call get allproject task
-        this.GetAllTaskOfProject(`projects/${projectId}/tasks`).subscribe({
-          next: (response) => {},
-          error: () => {},
-        });
-      })
-    );
+    return this.httpClient.post(this.baseUrl2+`projects/${projectId}/tasks`, taskdata)
   }
 
   EditTask(url: string, updatedTask: EditTask) {
     return this.httpClient.patch(this.baseUrl2+url, updatedTask);
   }
-  // private AllTaskObserable=new BehaviorSubject<Task[]>([]);
-  // AllTask$=this.AllTaskObserable.asObservable()
-  // GetAllTask(){
-  //   return this.httpClient.get<TaskApiResponse>().pipe(
-  //       map((response)=>{
-  //         return response.data.map((t)=>({
-  //              TaskId: t.task_id,
-  //         Title: t.title,
-  //         Description: t.description,
-  //         AcceptanceCriteria: t.acceptance_criteria,
-  //         Deadline: new Date(t.deadline),
-  //         TaskPriority: t.taskpriority as priority,
-  //         TaskStatus: t.taskstatus as TaskStatus,
-  //         AssignedTo: t.assigned_to,
-  //         ProjectId: t.project_id,
-  //         CreatedBy: t.created_by,
-  //         })as Task);
-  //       }),
-  //       tap((tasks)=>{
-  //         this.AllTaskObserable.next(tasks);
-  //       })
-  //     )
-  // }
+ 
 
   GetEmpTask(url:string){
      return this.httpClient.get<TaskApiResponse>(this.baseUrl2+url).pipe(
