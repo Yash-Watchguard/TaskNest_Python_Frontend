@@ -416,6 +416,7 @@ $text-primary: #1f2937;
   .criteria-section,
   .discussion-section {
     padding: 1.5rem;
+    
 
     h2 {
       font-size: 1.1rem;
@@ -424,10 +425,28 @@ $text-primary: #1f2937;
         font-size: 1.2rem;
       }
     }
+
+    .discussion-title {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 1rem !important;
+      width: 100% !important;
+
+      .reload-icon {
+        margin-left: 0 !important;
+        cursor: pointer;
+      }
+    }
   }
+
 
   .message {
     gap: 0.75rem;
+
+    :hover{
+      cursor: pointer;
+    }
 
     .avatar {
       width: 35px;
@@ -531,4 +550,17 @@ $text-primary: #1f2937;
     justify-content: center;
     padding-right: 20px;
     color: var(--purple-300);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.reload-icon.spinning {
+  animation: spin 1s linear;
 }

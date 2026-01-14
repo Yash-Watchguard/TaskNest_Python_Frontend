@@ -31,6 +31,8 @@ export class TaskDetailsComponent implements OnInit, OnDestroy{
    }
    
    isOpenEditTask=false;
+   isReloading = false;
+   isshowdate= false;
 
    private commentservice=inject(CommentService)
    private comments$!:Observable<comment[]>
@@ -49,21 +51,26 @@ export class TaskDetailsComponent implements OnInit, OnDestroy{
    }
 
   loadComments(): void {
+      this.isReloading = true;
       this.comments$=this.commentservice.comments$;
       this.commentservice.GetComments(`projects/${this.task.ProjectId}/tasks/${this.task?.TaskId}/comments`)
       .subscribe({
         next:(response)=>{
           console.log(response)
+          this.isReloading= false
         },
         error:(err:HttpErrorResponse)=>{
           console.log(err)
+          this.isReloading = false
         }
       });
       if (this.commentSubscription) {
         this.commentSubscription.unsubscribe();
       }
       this.commentSubscription = this.comments$.subscribe(comments=>{
-        this.allcomments = comments;
+        this.allcomments = comments.sort((a,b)=> 
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+        );
       });
   }
 
@@ -101,6 +108,9 @@ export class TaskDetailsComponent implements OnInit, OnDestroy{
 
   goBack():void{
     window.history.back()
+  }
+  showdate(){
+    this.isshowdate= true
   }
 
   onSuccessfulledit():void{

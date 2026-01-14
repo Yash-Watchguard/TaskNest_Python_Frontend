@@ -8,6 +8,7 @@
       <div *ngFor="let comment of allcomments" class="comment-item">
         <div class="comment-header">
           <span class="comment-user">{{ comment.created_by }}</span>
+          <span class="creation-time">{{comment.created_at}}</span>
         </div>
         <p class="comment-content">{{ comment.content }}</p>
       </div>

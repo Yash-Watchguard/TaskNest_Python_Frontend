@@ -21,7 +21,8 @@ export class CommentService{
             return response.data.map((t)=>({
                  comment_id:t.comment_id,
                  created_by:t.created_by,
-                 content:t.content
+                 content:t.content,
+                 created_at:t.created_at
             }) as comment)
         }),
         tap((tasks)=>{

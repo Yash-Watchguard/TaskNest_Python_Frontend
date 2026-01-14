@@ -33,11 +33,24 @@
 
 
 <section class="discussion-section">
-<h2><i class="pi pi-comments"></i> Discussion</h2>
-
+<h2 class="discussion-title" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+    <span style="display: flex; align-items: center; gap: 0.5rem;">
+      <i class="pi pi-comments comment"></i>
+      Discussion
+    </span>
+    <i
+      class="pi pi-refresh reload-icon"
+      [class.spinning]="isReloading"
+      (click)="loadComments()"
+      title="Reload comments"
+      style="cursor: pointer;"
+    ></i>
+  </h2>
+<!-- <h2><i class="pi pi-comments" (click)="loadComments()"></i></h2> -->
+  
 @for (comment of allcomments; track comment.comment_id) {
   @if(comment.created_by==user?.Name){
-     <div class="message message-right">
+     <div class="message message-right" (click)="showdate()">
   <div class="avatar self-avatar">{{comment.created_by.at(0)?.toUpperCase()}}</div>
 <div class="bubble self">
 <span class="name self-name">You</span>
@@ -45,21 +58,23 @@
 
 </div>
 
+
 </div>
+
   }@else {
     <div class="message message-left">
 <div class="avatar">{{comment.created_by.at(0)?.toUpperCase()}}</div>
 <div class="bubble">
-<span class="name">{{comment.created_by}} </span>
+<span class="name">{{comment.created_by}}</span>
+<!-- <span class="name">{{comment.created_at |date}} </span> -->
 <p>{{comment.content}}</p>
 
 </div>
 </div>
   }
+  
 
 }
-
-
 
 <div class="message-input">
 <input type="text" placeholder="Type your message here..." [(ngModel)]="newComment"/>
