@@ -82,7 +82,14 @@
       Complete
     </button>
     <button
-    *ngIf="task.TaskStatus != TaskStatus.Pending && user?.Role ==2"
+    *ngIf="task.TaskStatus != TaskStatus.Pending && user?.Role ==2 "
+      class="Back-button"
+      (click)="goBack()"
+    >
+      Back
+    </button>
+    <button
+    *ngIf="task.TaskStatus == TaskStatus.InReview && user?.Role == 1 "
       class="Back-button"
       (click)="goBack()"
     >
