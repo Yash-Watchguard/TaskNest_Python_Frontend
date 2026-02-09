@@ -10,8 +10,8 @@ export class CommentService{
   public comments$ = this.commentobject.asObservable();
   private getcommenturl=''
 
-   baseUrl= 'http://127.0.0.1:8000/'
-  baseUrl2= 'http://127.0.0.1:8000/'
+   baseUrl= 'http://taskne-loadb-8sp9wzi9yryo-823826061.ap-south-1.elb.amazonaws.com/'
+  baseUrl2= 'http://taskne-loadb-8sp9wzi9yryo-823826061.ap-south-1.elb.amazonaws.com/'
 
   GetComments(url:string){
     this.getcommenturl=url;
