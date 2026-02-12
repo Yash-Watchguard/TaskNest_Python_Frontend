@@ -20,4 +20,11 @@ describe('LoaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render loader markup', () => {
+    const element: HTMLElement = fixture.nativeElement;
+
+    expect(element.querySelector('.loader-container')).toBeTruthy();
+    expect(element.querySelector('.loader')).toBeTruthy();
+  });
 });

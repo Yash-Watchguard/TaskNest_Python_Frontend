@@ -17,7 +17,13 @@ describe('WildcardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show the not found message', () => {
+    const element: HTMLElement = fixture.nativeElement;
+
+    expect(element.textContent).toContain('url is not correct');
   });
 });

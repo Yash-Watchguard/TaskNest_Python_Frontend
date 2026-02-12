@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommentService } from '../services/comment.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comment',
   standalone: true,
+  imports: [FormsModule],
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
