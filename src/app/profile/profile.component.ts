@@ -55,9 +55,9 @@ export class ProfileComponent implements OnInit {
     console.log(this.userProfile())
     
     this.profileForm = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
     });
 
     if (this.currentUser?.Email && !this.userProfile().Name) {

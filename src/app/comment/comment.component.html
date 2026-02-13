@@ -23,6 +23,8 @@
         [(ngModel)]="newComment"
         placeholder="Enter your comment here..."
         rows="3"
+        maxlength="200"
+        minlength="2"
         (keyup.enter)="addComment()"
       ></textarea>
       <div class="form-actions">

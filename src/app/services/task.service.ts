@@ -27,8 +27,8 @@ export class TaskService {
 
   // Task of a particular project
 
-   baseUrl= 'http://taskne-loadb-8sp9wzi9yryo-823826061.ap-south-1.elb.amazonaws.com/'
-  baseUrl2= 'http://taskne-loadb-8sp9wzi9yryo-823826061.ap-south-1.elb.amazonaws.com/'
+   baseUrl= 'http://127.0.0.1:8000/'
+  baseUrl2= 'http://127.0.0.1:8000/'
   AprojectTask = new BehaviorSubject<Task[]>([]);
   public ProjectTasks$ = this.AprojectTask.asObservable();
   private gettaskurl = '';

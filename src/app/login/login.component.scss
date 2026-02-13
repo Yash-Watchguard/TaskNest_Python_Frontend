@@ -68,14 +68,15 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* Better spacing between form controls */
+  gap: 0.5rem; /* Better spacing between form controls */
 }
 
 .form-control {
   position: relative; /* Needed for positioning the error message */
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
+  min-height: 4.5rem;
 
   input {
     font-size: 1.1rem;
@@ -95,14 +96,13 @@
 }
 
 .validation-error {
-  position: absolute;
-  top: 100%; /* Position below the input */
-  left: 0;
-  margin-top: 0.25rem; /* Small gap between input and error text */
-  color: red;
-  font-size: 12px;
-  padding: 0;
-  white-space: nowrap; /* Prevents text from wrapping if too long */
+  color: #dc3545;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  line-height: 1.2;
+  display: block;
+  min-height: 1.2rem;
 }
 
 p-button {

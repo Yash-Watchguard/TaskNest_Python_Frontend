@@ -139,14 +139,12 @@ export class AdminDashboardComponent implements OnInit {
       error: (err: HttpErrorResponse) => {
         // Assuming promotion might succeed despite error, refresh the list
        this.messageservice.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'User Promoted Successfully',
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to Promote User',
           life: 3000,
         });
-        this.userservice.GetAllUsers().subscribe({
-          error: () => {},
-        });
+    
       },
     });
   }

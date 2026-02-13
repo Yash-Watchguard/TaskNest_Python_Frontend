@@ -41,12 +41,36 @@
       <form [formGroup]="profileForm" (ngSubmit)="saveChanges()">
         <label for="name">Full Name</label>
         <input type="text" id="name" formControlName="name">
+        @if (profileForm.get('name')?.touched && profileForm.get('name')?.invalid) {
+          @if (profileForm.get('name')?.errors?.['required']) {
+            <p class="validation-error">Name is required</p>
+          }
+          @if (profileForm.get('name')?.errors?.['maxlength']) {
+            <p class="validation-error">Name must be maximum 20 characters</p>
+          }
+        }
 
         <label for="email">Email</label>
         <input type="email" id="email" formControlName="email">
+        @if (profileForm.get('email')?.touched && profileForm.get('email')?.invalid) {
+          @if (profileForm.get('email')?.errors?.['required']) {
+            <p class="validation-error">Email is required</p>
+          }
+          @if (profileForm.get('email')?.errors?.['email']) {
+            <p class="validation-error">Email is not valid</p>
+          }
+        }
 
         <label for="phonenumber">Phone Number</label>
         <input type="text" id="phonenumber" formControlName="phoneNumber">
+        @if (profileForm.get('phoneNumber')?.touched && profileForm.get('phoneNumber')?.invalid) {
+          @if (profileForm.get('phoneNumber')?.errors?.['required']) {
+            <p class="validation-error">Phone number is required</p>
+          }
+          @if (profileForm.get('phoneNumber')?.errors?.['pattern']) {
+            <p class="validation-error">Phone number is not valid (must be 10 digits)</p>
+          }
+        }
 
         <div class="action">
           <button type="submit" [disabled]="profileForm.invalid || isLoading()">

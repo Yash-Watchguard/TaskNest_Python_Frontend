@@ -17,8 +17,8 @@ export class AuthService {
   signupsignal = signal<boolean>(false);
   newUser = signal<user | null>(null);
 
-  baseUrl= 'http://taskne-loadb-8sp9wzi9yryo-823826061.ap-south-1.elb.amazonaws.com/'
-  baseUrl2= 'http://taskne-loadb-8sp9wzi9yryo-823826061.ap-south-1.elb.amazonaws.com/'
+  baseUrl= 'http://127.0.0.1:8000/'
+  baseUrl2= 'http://127.0.0.1:8000/'
   
   Signup(url: string, UserDetails: signupuserdto) {
     return this.HttpClient.post<signupresponse>(this.baseUrl+'signup', UserDetails);

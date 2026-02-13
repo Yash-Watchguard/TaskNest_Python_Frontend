@@ -14,16 +14,26 @@
 
       <form class="login-form" (ngSubmit)="onSubmit()" #loginform="ngForm">
         <div class="form-control">
-          <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required #emailInput="ngModel" />
+          <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required email #emailInput="ngModel" />
           @if (emailInput.touched && emailInput.invalid) {
-            <p class="validation-error">Email is a required field.</p>
+            @if (emailInput.errors?.['required']) {
+              <p class="validation-error">Email is a required field.</p>
+            }
+            @if (emailInput.errors?.['email']) {
+              <p class="validation-error">Email is not valid.</p>
+            }
           }
         </div>
 
         <div class="form-control">
-          <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required #passwordInput="ngModel" />
+          <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required minlength="10" #passwordInput="ngModel" />
           @if (passwordInput.touched && passwordInput.invalid) {
-            <p class="validation-error">Password is a required field.</p>
+            @if (passwordInput.errors?.['required']) {
+              <p class="validation-error">Password is a required field.</p>
+            }
+            @if (passwordInput.errors?.['minlength']) {
+              <p class="validation-error">Password minimum length is 10 characters.</p>
+            }
           }
         </div>
         

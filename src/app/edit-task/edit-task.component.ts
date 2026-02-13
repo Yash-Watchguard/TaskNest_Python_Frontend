@@ -14,12 +14,11 @@ import { MessageService } from 'primeng/api';
   imports: [Toast, FormsModule, DatePipe],
   templateUrl: './edit-task.component.html',
   styleUrl: './edit-task.component.scss',
-  providers: [MessageService],
 })
 export class EditTaskComponent implements OnInit {
   @Input({ required: true }) task!: Task;
   @Output() closeSignal = new EventEmitter();
-  @Output() editSuccess= new EventEmitter();
+  @Output() editSuccess = new EventEmitter<{success: boolean, message: string}>();
   empList: person[] = [];
   titel = '';
   description = '';
@@ -30,8 +29,7 @@ export class EditTaskComponent implements OnInit {
 
   constructor(
     private userservice: UserService,
-    private taskservice: TaskService,
-    private messagesevice: MessageService
+    private taskservice: TaskService
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +37,7 @@ export class EditTaskComponent implements OnInit {
       this.titel = this.task.Title;
       this.description = this.task.Description;
       this.acceptanceCriteria = this.task.AcceptanceCriteria;
-      this.deadline = '',
+      this.deadline = this.formatDateForInput(this.task.Deadline);
       this.empId = this.task.AssignedTo;
       this.task_priority = this.task.TaskPriority;
     }
@@ -76,7 +74,8 @@ export class EditTaskComponent implements OnInit {
       this.description != this.task.Description ||
       this.acceptanceCriteria != this.task.AcceptanceCriteria ||
       this.empId != this.task.AssignedTo ||
-      this.task_priority != this.task.TaskPriority
+      this.task_priority != this.task.TaskPriority ||
+      this.deadline != this.formatDateForInput(this.task.Deadline)
     );
   }
 
@@ -93,7 +92,6 @@ export class EditTaskComponent implements OnInit {
       .EditTask(`projects/${this.task.ProjectId}/tasks/${this.task.TaskId}/manager/${this.task.CreatedBy}/update`, updatedDetails)
       .subscribe({
         next: () => {
-          this.editSuccess.emit();
           this.taskservice
             .GetAllManagerProjectTask(
               `projects/managers/${this.task.CreatedBy}/tasks`
@@ -109,23 +107,33 @@ export class EditTaskComponent implements OnInit {
               next: (response) => {},
               error: () => {},
             });
-          this.messagesevice.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Task edited successfully',
-          });
+
+          this.editSuccess.emit({success: true, message: 'Task edited successfully'});
         },
         error: (err: HttpErrorResponse) => {
-          this.messagesevice.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: `${err.error()}`,
-          });
+          this.editSuccess.emit({success: false, message: 'Failed to edit task'});
         },
       });
   }
 
   close(): void {
     this.closeSignal.emit();
+  }
+
+  getTodayDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  formatDateForInput(dateInput: Date | string): string {
+    if (!dateInput) return '';
+    const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 }

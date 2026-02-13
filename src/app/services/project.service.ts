@@ -11,8 +11,8 @@ export class ProjectService{
 
     projects$ =this.ProjectObject.asObservable();
 
-     baseUrl= 'http://taskne-loadb-8sp9wzi9yryo-823826061.ap-south-1.elb.amazonaws.com/'
-  baseUrl2= 'http://taskne-loadb-8sp9wzi9yryo-823826061.ap-south-1.elb.amazonaws.com/'
+     baseUrl= 'http://127.0.0.1:8000/'
+  baseUrl2= 'http://127.0.0.1:8000/'
 
     private getprojecturl='';
 

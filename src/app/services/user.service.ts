@@ -24,8 +24,8 @@ export class UserService {
     Role: '',
   });
 
-  baseUrl= 'http://taskne-loadb-8sp9wzi9yryo-823826061.ap-south-1.elb.amazonaws.com/'
-  baseUrl2= 'http://taskne-loadb-8sp9wzi9yryo-823826061.ap-south-1.elb.amazonaws.com/'
+  baseUrl= 'http://127.0.0.1:8000/'
+  baseUrl2= 'http://127.0.0.1:8000/'
 
   GetAllUsers() {
     return this.httpClient.get<getAllUsersApiRes>(this.baseUrl+`users`).pipe(
@@ -52,7 +52,7 @@ export class UserService {
   }
 
   PromoteUser(id: string) {
-    return this.httpClient.patch(this.baseUrl2+`user/${id}`, {role:"Manager"});
+    return this.httpClient.patch(this.baseUrl2+`users/${id}`, {Role:"Manager"});
   }
 
   GetProfile(userId: string) {

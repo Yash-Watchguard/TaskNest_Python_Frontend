@@ -10,19 +10,22 @@ import { FormsModule } from '@angular/forms';
 import { EditTaskComponent } from "../edit-task/edit-task.component";
 import { user } from '../models/user.model';
 import { TaskService } from '../services/task.service';
+import { Toast } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
   selector: 'app-task-details',
   standalone:true,
-  imports: [DatePipe, FormsModule, CommonModule, EditTaskComponent],
+  imports: [DatePipe, FormsModule, CommonModule, EditTaskComponent, Toast],
   templateUrl: './task-details.component.html',
-  styleUrl: './task-details.component.scss'
+  styleUrl: './task-details.component.scss',
+  providers: [MessageService],
 })
 export class TaskDetailsComponent implements OnInit, OnDestroy{
   task!:Task;
   taskstatus=TaskStatus
-   constructor(private router:Router , private taskService:TaskService){
+   constructor(private router:Router , private taskService:TaskService, private messageService: MessageService){
     const navigation =this.router.getCurrentNavigation();
        const state=navigation?.extras.state as {task:Task};
        if(state?.task){
@@ -117,12 +120,27 @@ export class TaskDetailsComponent implements OnInit, OnDestroy{
     }
   }
 
-  onSuccessfulledit():void{
-      this.taskService.GetSingleTask(`creator/${this.task.CreatedBy}/projects/${this.task.ProjectId}/tasks/${this.task.TaskId}`).subscribe({
-        next:(Response:Task[])=>{
-          this.task=Response[0];
-        }
-      });
+  onSuccessfulledit(result: {success: boolean, message: string}):void{
+      if(result.success) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: result.message,
+          life: 3000,
+        });
+        this.taskService.GetSingleTask(`creator/${this.task.CreatedBy}/projects/${this.task.ProjectId}/tasks/${this.task.TaskId}`).subscribe({
+          next:(Response:Task[])=>{
+            this.task=Response[0];
+          }
+        });
+      } else {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: result.message,
+          life: 3000,
+        });
+      }
       this.closeEditbox()
   }
 }

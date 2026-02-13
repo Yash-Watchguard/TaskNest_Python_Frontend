@@ -18,12 +18,18 @@
           id="project-name"
           placeholder="Enter project name"
           required
+          maxlength="30"
           [(ngModel)]="ProjectDetails.projectName"
           name="titel"
           #projectNameInput="ngModel"
         />
         @if (projectNameInput.touched && projectNameInput.invalid) {
-        <p class="validation-error">Project name cannot be empty</p>
+          @if (projectNameInput.errors?.['required']) {
+            <p class="validation-error">Project name cannot be empty</p>
+          }
+          @if (projectNameInput.errors?.['maxlength']) {
+            <p class="validation-error">Project name must be at least 15 characters</p>
+          }
         }
       </div>
 
@@ -36,7 +42,7 @@
           id="project-description"
           placeholder="Enter project description"
           rows="3"
-          maxlength="500"
+          maxlength="100"
           required
           [(ngModel)]="ProjectDetails.projectDescription"
           name="project_description"
@@ -44,7 +50,12 @@
         ></textarea>
         @if (descriptionInput.touched && descriptionInput.invalid &&
         descriptionInput.dirty) {
-        <p class="validation-error">Project description cannot be empty</p>
+          @if (descriptionInput.errors?.['required']) {
+            <p class="validation-error">Project description cannot be empty</p>
+          }
+          @if (descriptionInput.errors?.['maxlength']) {
+            <p class="validation-error">Project description must be at least 50 characters</p>
+          }
         }
       </div>
 
@@ -54,7 +65,7 @@
           type="date"
           class="form-input"
           id="deadline"
-          min="2026-01-12"
+          [min]="getTodayDate()"
           required
           (keydown)="onKeyDown($event)"
           (paste)="$event.preventDefault()"
@@ -63,7 +74,12 @@
           #deadlineInput="ngModel"
         />
         @if (deadlineInput.touched && deadlineInput.invalid) {
-        <p class="validation-error">Deadline cannot be empty</p>
+          @if (deadlineInput.errors?.['required']) {
+            <p class="validation-error">Deadline cannot be empty</p>
+          }
+        }
+        @if (deadlineInput.touched && deadlineInput.value && deadlineInput.value < getTodayDate()) {
+          <p class="validation-error">Deadline must be later than the current date</p>
         }
       </div>
 

@@ -1,4 +1,3 @@
-<p-toast position="top-right"></p-toast>
 <div class="modal-overlay">
   <div class="modal-content">
     <header class="modal-header">
@@ -19,10 +18,19 @@
             id="task-titel"
             [placeholder]="titel"
             required
+            maxlength="30"
             [(ngModel)]="titel"
             name="titel"
+            #titelInput="ngModel"
           />
-         
+          @if (titelInput.touched && titelInput.invalid) {
+            @if (titelInput.errors?.['required']) {
+              <p class="validation-error">Task titel cannot be empty</p>
+            }
+          }
+          @if (titelInput.touched && titel.length >= 30) {
+            <p class="validation-error">Task titel must be less than 30 characters</p>
+          }
         </div>
 
         <div class="form-group">
@@ -31,13 +39,21 @@
             class="form-input"
             id="description"
             rows="3"
-            maxlength="500"
+            maxlength="100"
             required
             [(ngModel)]="description"
             name="project_description"
             [placeholder]="description"
-            name="des"
+            #descriptionInput="ngModel"
           ></textarea>
+          @if (descriptionInput.touched && descriptionInput.invalid && descriptionInput.dirty) {
+            @if (descriptionInput.errors?.['required']) {
+              <p class="validation-error">Task description cannot be empty</p>
+            }
+          }
+          @if (descriptionInput.touched && description.length >= 100) {
+            <p class="validation-error">Task description must be less than 100 characters</p>
+          }
         </div>
 
         <div class="form-group">
@@ -76,14 +92,23 @@
             type="date"
             class="form-input"
             id="deadline"
-            min="2026-01-12"
+            [min]="getTodayDate()"
             required
             (keydown)="onKeyDown($event)"
             (paste)="$event.preventDefault()"
             [(ngModel)]="deadline"
             name="deadline"
             [placeholder]="task.Deadline |date:'dd/MM/yyyy'"
+            #deadlineInput="ngModel"
           />
+          @if (deadlineInput.touched && deadlineInput.invalid) {
+            @if (deadlineInput.errors?.['required']) {
+              <p class="validation-error">Deadline cannot be empty</p>
+            }
+          }
+          @if (deadlineInput.touched && deadlineInput.value && deadlineInput.value < getTodayDate()) {
+            <p class="validation-error">Deadline must be greater than the current date</p>
+          }
         </div>
 
         <div class="form-group">
