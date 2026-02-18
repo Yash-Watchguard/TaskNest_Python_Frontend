@@ -58,7 +58,7 @@ export class ProjectService{
        }>(this.baseUrl2+url);
     }
     
-    private AllprojectSubject=new BehaviorSubject<Project[]>([]);
+    private AllprojectSubject=new BehaviorSubject< Project[]>([]);
     AllProjectObserver$=this.AllprojectSubject.asObservable();
     GetAllProject(){
         return this.httpclient.get<viewprojectresponse>(this.baseUrl+`projects`).pipe(
